@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn" name="cadastroFuncional" packages="">
+  <Appenders>
+  	<RollingFile name="cadastrofuncional" fileName="logs/cadastrofuncional.log" filePattern="logs/cadastrofuncional-%d{yyyy-MM-dd}.log">
+		<PatternLayout>
+			<Pattern>%d{dd-MM-yyyy HH:mm:ss} - %msg%n</Pattern>
+		</PatternLayout>
+		<Policies>
+			<TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+		</Policies>
+	</RollingFile>
+	<RollingFile name="enviosenhas" fileName="logs/enviosenhas.log" filePattern="logs/enviosenhas-%d{yyyy-MM-dd}.log">
+		<PatternLayout>
+			<Pattern>%d{dd-MM-yyyy HH:mm:ss} - %msg%n</Pattern>
+		</PatternLayout>
+		<Policies>
+			<TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+		</Policies>
+	</RollingFile>
+    <Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+    </Console>
+  </Appenders>
+  <Loggers>
+  	<Logger name="br.com.capesesp.cadastrofuncional" level="info">
+      <AppenderRef ref="cadastrofuncional" level="info" />
+    </Logger>
+    <Logger name="br.com.capesesp.enviodesenhas" level="info">
+      <AppenderRef ref="enviosenhas" level="info" />
+    </Logger>
+    <Root level="info">
+      <AppenderRef ref="Console"/>
+    </Root>
+  </Loggers>
+</Configuration>
