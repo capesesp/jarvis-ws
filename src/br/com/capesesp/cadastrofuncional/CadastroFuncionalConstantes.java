@@ -15,13 +15,13 @@ public interface CadastroFuncionalConstantes {
 	/** 
 	 * Usuario na Funcional
 	 */
-	String LOGIN = System.getProperty("usuario.funcional");
+	String LOGIN = System.getProperty("funcional.usuario");
 	;
 	
 	/** 
 	 * Usuario na Funcional
 	 */
-	String SENHA = System.getProperty("senha.funcional");	
+	String SENHA = System.getProperty("funcional.senha");	
 	
 	/**
 	 * Código da unidade da Capesesp cadastrada na Funcional
