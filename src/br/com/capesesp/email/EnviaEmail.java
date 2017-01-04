@@ -40,10 +40,10 @@ public class EnviaEmail {
 		try {
 			Multipart multipart = new MimeMultipart();
 			MimeBodyPart messageBodyPart = new MimeBodyPart();
-			String filename = "log/funcional.log";
+			String filename = System.getProperty("jboss.server.log.dir") + "/funcional.log";
 			DataSource source = new FileDataSource(filename);
 			messageBodyPart.setDataHandler(new DataHandler(source));
-			messageBodyPart.setFileName(filename);
+			messageBodyPart.setFileName("funcional.log");
 			multipart.addBodyPart(messageBodyPart);
 			
 			mensagem.setSubject("Relatório de Envio do Cadastro - Funcional");
