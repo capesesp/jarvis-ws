@@ -13,7 +13,11 @@ public class CadastroFuncional {
 	public static final Logger logger = Logger.getLogger("br.com.capesesp.funcional");
 	
 	public Retorno cadastrar(DadosCadastrais dadosCadastrais) {
+/*
 
+ */
+	  
+	  
 		Services servicesFuncional = new Services();
 		Retorno retorno = new Retorno();	
 		
@@ -28,7 +32,6 @@ public class CadastroFuncional {
 					dadosCadastrais.associado.sequencial,               // numdep
 					CadastroFuncionalConstantes.COD_CLIENTE,            // codCli
 					dadosCadastrais.capesesp.instrucao,                 // Instrução
-					dadosCadastrais.titular.codCartao,                  // Codigo do cartãoO
 					dadosCadastrais.titular.matricula,                  // Matricula
 					dadosCadastrais.associado.nome,                     // Nome do associado
 					dadosCadastrais.associado.sexo,                     // Sexo do associado
@@ -59,8 +62,7 @@ public class CadastroFuncional {
 					dadosCadastrais.associado.enderecoEntrega.cidade,         // cidade_entrega
 					dadosCadastrais.associado.enderecoEntrega.uf,             // uf_entrega
 					dadosCadastrais.associado.enderecoEntrega.cep,            // cep_entrega
-					CadastroFuncionalConstantes.COD_CLIENTE,                  // codcli_destino
-					CadastroFuncionalConstantes.COD_GRC                       // grc_codigo
+					CadastroFuncionalConstantes.COD_CLIENTE                  // codcli_destino
 					);
 		}catch (Exception e) {
 			logger.log(Level.SEVERE, "Erro ao enviar dados para a Funcional:" + e.getMessage());
