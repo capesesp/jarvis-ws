@@ -1,11 +1,7 @@
 package br.com.capesesp.cadastrofuncional;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -25,6 +21,7 @@ import br.com.capesesp.ws.StatusExecucao;
 import https.ws_beneficiario_funcionalcard_com.Mensagem;
 import https.ws_beneficiario_funcionalcard_com.Retorno;
 
+
 public class EnviaCadastro implements CadastroFuncionalConstantes{
 
 	public static final Logger logger = Logger.getLogger("br.com.capesesp.funcional");
@@ -37,7 +34,7 @@ public class EnviaCadastro implements CadastroFuncionalConstantes{
 		String retornoJsonSistemaCentral = "";
 		Retorno retornoFuncional = new Retorno();
 		CadastroFuncional enviaCadastroFuncional = new CadastroFuncional();
-		Map<String, String> dataHora = formatarDataHora();
+		String timestamp = new SimpleDateFormat("yyyyMMddkkmmss").format(new Date().getTime());
 		Integer problemaFuncional = 0;
 		Integer problemaSistemaCentral = 0;
 		
@@ -57,13 +54,17 @@ public class EnviaCadastro implements CadastroFuncionalConstantes{
   					if(dadosCadastrais.statusExecucao.mensagens.mensagem[0].codigo != 3){
 							retornoFuncional = enviaCadastroFuncional.cadastrar(dadosCadastrais);
 							for(Mensagem mensagem: retornoFuncional.getStatusExecucao().getMensagens().getMensagem()) {
+								
+								retornoJsonSistemaCentral = OpusAdapter.fucj05(
+					                    retornoFuncional.getMatricula(),
+					                    retornoFuncional.getNumdep(), 
+					                    timestamp, 
+					                    String.valueOf(mensagem.getCodigo()));
+								
+								
 							  if(mensagem.getCodigo() == 1 || mensagem.getCodigo() == 2 || mensagem.getCodigo() == 3 || mensagem.getCodigo() == 18){
 							      logger.info("Associado " + retornoFuncional.getMatricula() + " - " + retornoFuncional.getNumdep() + ": " + mensagem.getMensagem());  
-		                retornoJsonSistemaCentral = OpusAdapter.fucj05(
-		                    retornoFuncional.getMatricula(),
-		                    retornoFuncional.getNumdep(), 
-		                    dataHora.get("data"), 
-		                    dataHora.get("hora"));
+		                
 
 		                GenericSaida genericSaida = gson.fromJson(retornoJsonSistemaCentral, GenericSaida.class);
 		                StatusExecucao statusExecucao = genericSaida.getStatusExecucao();
@@ -106,30 +107,6 @@ public class EnviaCadastro implements CadastroFuncionalConstantes{
 		logger.info("Total de Problemas : " + (problemaSistemaCentral + problemaFuncional));
 
 		
-	}
-	
-	/**
-	 * Metodo responsavel por formatar a data e hora para ser incluida no Sistema Central
-	 * @return
-	 */
-	public Map<String,String> formatarDataHora(){
-		
-		Calendar calendar = new GregorianCalendar();
-		SimpleDateFormat formatoData = new SimpleDateFormat("yyyyMMdd");
-		SimpleDateFormat formatoHora = new SimpleDateFormat("kk:mm:ss");
-		
-		Date date = new Date();
-		calendar.setTime(date);
-		
-		String data = formatoData.format(calendar.getTime());
-		String hora = formatoHora.format(calendar.getTime());
-		
-		Map<String, String> dataHora = new HashMap<String, String>();
-		dataHora.put("data" , data);
-		dataHora.put("hora" , hora);
-		
-				
-		return dataHora;
 	}
 	
 }
