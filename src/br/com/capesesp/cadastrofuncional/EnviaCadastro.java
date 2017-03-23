@@ -51,33 +51,34 @@ public class EnviaCadastro implements CadastroFuncionalConstantes{
 					try {
 						retornoJsonSistemaCentral = OpusAdapter.fucj04(associadoEnvio.matricula,associadoEnvio.sequencial);
 						DadosCadastrais dadosCadastrais = gson.fromJson(retornoJsonSistemaCentral, DadosCadastrais.class);
-  					if(dadosCadastrais.statusExecucao.mensagens.mensagem[0].codigo != 3){
+						if(dadosCadastrais.statusExecucao.mensagens.mensagem[0].codigo != 3){
 							retornoFuncional = enviaCadastroFuncional.cadastrar(dadosCadastrais);
 							for(Mensagem mensagem: retornoFuncional.getStatusExecucao().getMensagens().getMensagem()) {
 								
 								retornoJsonSistemaCentral = OpusAdapter.fucj05(
-					                    retornoFuncional.getMatricula(),
-					                    retornoFuncional.getNumdep(), 
-					                    timestamp, 
-					                    String.valueOf(mensagem.getCodigo()));
+										retornoFuncional.getMatricula(),
+										retornoFuncional.getNumdep(), 
+										timestamp, 
+										String.valueOf(mensagem.getCodigo()));
 								
 								
-							  if(mensagem.getCodigo() == 1 || mensagem.getCodigo() == 2 || mensagem.getCodigo() == 3 || mensagem.getCodigo() == 18){
-							      logger.info("Associado " + retornoFuncional.getMatricula() + " - " + retornoFuncional.getNumdep() + ": " + mensagem.getMensagem());  
+								if(mensagem.getCodigo() == 1 || mensagem.getCodigo() == 2 || mensagem.getCodigo() == 3 || mensagem.getCodigo() == 18){
+									logger.info("Associado " + retornoFuncional.getMatricula() + " - " + retornoFuncional.getNumdep() + ": " + mensagem.getMensagem());  
 		                
 
-		                GenericSaida genericSaida = gson.fromJson(retornoJsonSistemaCentral, GenericSaida.class);
-		                StatusExecucao statusExecucao = genericSaida.getStatusExecucao();
-		                if(statusExecucao.mensagens.mensagem[0].codigo == 7){
-		                  logger.info("Associado " + retornoFuncional.getMatricula() + " - " + retornoFuncional.getNumdep() + ", foi salvo corretamente no Sistema Central");
-		                }else{
-		                  logger.log(Level.SEVERE, "Não foi possivel salvar data e hora de envio no Sistema Central: " + statusExecucao.mensagens.mensagem[0].mensagem + " : " + retornoJsonSistemaCentral);
-		                  problemaSistemaCentral++;
-		                } 
-							  } else {
-	                logger.info("Associado " + retornoFuncional.getMatricula() + " - " + retornoFuncional.getNumdep() + ": " + mensagem.getMensagem());
-	                problemaFuncional++;
-							  }
+									GenericSaida genericSaida = gson.fromJson(retornoJsonSistemaCentral, GenericSaida.class);
+									StatusExecucao statusExecucao = genericSaida.getStatusExecucao();
+									if(statusExecucao.mensagens.mensagem[0].codigo == 7){
+										logger.info("Associado " + retornoFuncional.getMatricula() + " - " + retornoFuncional.getNumdep() + ", foi salvo corretamente no Sistema Central");
+									}else{
+										logger.log(Level.SEVERE, "Não foi possivel salvar data e hora de envio no Sistema Central: " + statusExecucao.mensagens.mensagem[0].mensagem + " : " + retornoJsonSistemaCentral);
+										problemaSistemaCentral++;
+									}
+			                
+								} else {
+									logger.info("Associado " + retornoFuncional.getMatricula() + " - " + retornoFuncional.getNumdep() + ": " + mensagem.getMensagem());
+									problemaFuncional++;
+								}
 							}
 						}
 					}catch (JsonSyntaxException e){
