@@ -34,7 +34,7 @@ public class EnviaCadastro implements CadastroFuncionalConstantes{
 		String retornoJsonSistemaCentral = "";
 		Retorno retornoFuncional = new Retorno();
 		CadastroFuncional enviaCadastroFuncional = new CadastroFuncional();
-		String timestamp = new SimpleDateFormat("yyyyMMddkkmmss").format(new Date().getTime());
+		String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date().getTime());
 		Integer problemaFuncional = 0;
 		Integer problemaSistemaCentral = 0;
 		
@@ -68,10 +68,10 @@ public class EnviaCadastro implements CadastroFuncionalConstantes{
 
 									GenericSaida genericSaida = gson.fromJson(retornoJsonSistemaCentral, GenericSaida.class);
 									StatusExecucao statusExecucao = genericSaida.getStatusExecucao();
-									if(statusExecucao.mensagens.mensagem[0].codigo == 7){
-										logger.info("Associado " + retornoFuncional.getMatricula() + " - " + retornoFuncional.getNumdep() + ", foi salvo corretamente no Sistema Central");
+									if(statusExecucao.mensagens.mensagem[0].codigo == 8){
+										logger.info("Associado " + retornoFuncional.getMatricula() + " - " + retornoFuncional.getNumdep() + ": foi salvo corretamente no Sistema Central");
 									}else{
-										logger.log(Level.SEVERE, "Não foi possivel salvar data e hora de envio no Sistema Central: " + statusExecucao.mensagens.mensagem[0].mensagem + " : " + retornoJsonSistemaCentral);
+										logger.log(Level.SEVERE, "Não foi possivel salvar data e hora de envio no Sistema Central: " + statusExecucao.mensagens.mensagem[0].mensagem + " Data Hora Informada - " + timestamp + "   : " + retornoJsonSistemaCentral);
 										problemaSistemaCentral++;
 									}
 			                
