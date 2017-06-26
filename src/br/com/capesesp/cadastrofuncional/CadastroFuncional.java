@@ -93,12 +93,12 @@ public class CadastroFuncional {
 		dadosCadastrais.associado.nome = ajustarTamanhoCampo(dadosCadastrais.associado.nome, 30);
 		dadosCadastrais.associado.endereco.tipoLogradouro = ajustarTamanhoCampo(dadosCadastrais.associado.endereco.tipoLogradouro, 14);
 		dadosCadastrais.associado.endereco.logradouro = ajustarTamanhoCampo(dadosCadastrais.associado.endereco.logradouro, 59);
-		dadosCadastrais.associado.endereco.complemento = ajustarTamanhoCampo(dadosCadastrais.associado.endereco.complemento, 19);
+		dadosCadastrais.associado.endereco.complemento = ajustarTamanhoCampo(dadosCadastrais.associado.endereco.complemento, 70);
 		dadosCadastrais.associado.endereco.bairro = ajustarTamanhoCampo(dadosCadastrais.associado.endereco.bairro, 29);
 		dadosCadastrais.associado.endereco.cidade = ajustarTamanhoCampo(dadosCadastrais.associado.endereco.cidade, 29);
 		dadosCadastrais.associado.enderecoEntrega.tipoLogradouro = ajustarTamanhoCampo(dadosCadastrais.associado.enderecoEntrega.tipoLogradouro, 14);
 		dadosCadastrais.associado.enderecoEntrega.logradouro = ajustarTamanhoCampo(dadosCadastrais.associado.enderecoEntrega.logradouro, 59);
-		dadosCadastrais.associado.enderecoEntrega.complemento = ajustarTamanhoCampo(dadosCadastrais.associado.enderecoEntrega.complemento, 19);
+		dadosCadastrais.associado.enderecoEntrega.complemento = ajustarTamanhoCampo(dadosCadastrais.associado.enderecoEntrega.complemento, 70);
 		dadosCadastrais.associado.enderecoEntrega.bairro = ajustarTamanhoCampo(dadosCadastrais.associado.enderecoEntrega.bairro, 29);
 		dadosCadastrais.associado.enderecoEntrega.cidade = ajustarTamanhoCampo(dadosCadastrais.associado.enderecoEntrega.cidade, 29);
 	
